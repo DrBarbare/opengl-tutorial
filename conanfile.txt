@@ -1,0 +1,10 @@
+[requires]
+glew/2.1.0@bincrafters/stable
+glfw/3.3@bincrafters/stable
+glm/0.9.9.6
+entt/3.x.y-WIP@skypjack/stable
+
+[options]
+
+[generators]
+cmake
