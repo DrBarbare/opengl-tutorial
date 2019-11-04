@@ -3,8 +3,14 @@
 
 #include <stdexcept>
 #include <cstddef>
+#include <memory>
 #include <utility>
+
 #include <GLFW/glfw3.h>
+
+#include "GLProgram.h"
+#include "Triangle.h"
+
 
 namespace my
 {
@@ -15,7 +21,11 @@ class Window
 	GLFWwindow* m_window;
 	GLuint m_vao;
 
+	std::unique_ptr<my::Triangle> m_triangle;
+	std::unique_ptr<my::GLProgram> m_program;
+
 	void configure();
+
 
 public:
 

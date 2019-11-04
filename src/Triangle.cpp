@@ -1,3 +1,4 @@
+#include <GL/glew.h>
 #include "Triangle.h"
 
 namespace my
@@ -16,7 +17,7 @@ Triangle::Triangle()
 	// The following commands will talk about our 'vertexbuffer' buffer
 	glBindBuffer(GL_ARRAY_BUFFER, m_buffer);
 	// Give our vertices to OpenGL.
-	glBufferData(GL_ARRAY_BUFFER, vertices.size(), vertices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), vertices.data(), GL_STATIC_DRAW);
 }
 
 void

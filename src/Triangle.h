@@ -13,10 +13,12 @@ class Triangle
 	static const std::array<GLfloat, 9> vertices;
 	GLuint m_buffer;
 
-puiblic:
+public:
 
 	Triangle();
 	void draw();
 };
 
 } // namespace my
+
+#endif // MY_TRIANGLE_H
