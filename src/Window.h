@@ -1,6 +1,8 @@
 #ifndef MY_WINDOW_H
 #define MY_WINDOW_H
 
+#include <functional>
+#include <vector>
 #include <stdexcept>
 #include <cstddef>
 #include <memory>
@@ -8,8 +10,8 @@
 
 #include <GLFW/glfw3.h>
 
-#include "GLProgram.h"
 #include "Triangle.h"
+#include "unused.h"
 
 
 namespace my
@@ -20,12 +22,17 @@ class Window
 
 	GLFWwindow* m_window;
 	GLuint m_vao;
-
-	std::unique_ptr<my::Triangle> m_triangle;
-	std::unique_ptr<my::GLProgram> m_program;
-
 	void configure();
 
+	std::vector<std::function<void(void)>> m_actions;
+	template <typename Drawable>
+	void
+	wrap(const Camera& cam, const Drawable& drawable)
+	{
+		m_actions.emplace_back([&cam, &drawable]() { return drawable.draw(cam); });
+	}
+
+	void draw();
 
 public:
 
@@ -63,7 +70,14 @@ public:
 	}
 
 	bool isOpened() const noexcept;
-	void step() noexcept;
+
+	template <typename... Drawables>
+	void draw(const Camera& cam, const Drawables& ... drawables)
+	{
+		// Prepare drawing routines
+		my::unused((wrap(cam, drawables),0)...);
+		draw();
+	}
 };
 } // namespace my
 

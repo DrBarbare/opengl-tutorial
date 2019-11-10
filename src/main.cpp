@@ -1,5 +1,4 @@
 #include <memory>
-#include <glm/glm.hpp>
 #include "Window.h"
 
 int main(void)
@@ -10,10 +9,17 @@ int main(void)
 
 	// Extension loader libraries here
 
-	/* Loop until the user closes the window */
+	my::Camera cam{my::Camera::EProjection::perspective};
+	my::Triangle triangle;
+
+	float angle = 0.0f;
+	triangle.scale(0.5f, 0.5f, 0.0f);
 	while (window.isOpened())
 	{
-		window.step();
+		triangle.rotate(angle, 0.0f, 0.0f, 1.0f);
+		window.draw(cam, triangle);
+		angle += 0.5f;
+		if (angle > 360) angle = 0.0f;
 	}
 	return 0;
 }

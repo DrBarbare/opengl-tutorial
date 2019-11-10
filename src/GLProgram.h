@@ -41,6 +41,8 @@ public:
 	}
 
 	void use() const noexcept;
+
+	GLuint declareUniform(const char* name) const noexcept;
 };
 
 } // namespace my

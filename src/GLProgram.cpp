@@ -82,4 +82,11 @@ GLProgram::use() const noexcept
 	glUseProgram(m_id);
 }
 
+
+GLuint
+GLProgram::declareUniform(const char* name) const noexcept
+{
+	return glGetUniformLocation(m_id, name);
+}
+
 } // namespace my
