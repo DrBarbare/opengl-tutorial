@@ -1,0 +1,60 @@
+#ifndef TRANSFORMATIONS_IMPL
+#define TRANSFORMATIONS_IMPL
+
+namespace my
+{
+
+template <typename Derived>
+Transformations<Derived>::Transformations()
+	: m_self{static_cast<Derived*>(this)},
+	  m_translation{glm::translate(glm::vec3(0.0f, 0.0f, 0.0f))},
+	  m_rotation{glm::rotate(glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f))},
+	  m_scale{glm::scale(glm::vec3(1.0f, 1.0f, 1.0f))},
+	  m_mvp{glm::mat4(1.0f)},
+	  m_recomputeModel{true}
+{ }
+
+template <typename Derived>
+glm::mat4
+Transformations<Derived>::mvp(const glm::mat4& view) const noexcept
+{
+	if (m_recomputeModel)
+	{
+		m_mvp = view
+		        * m_translation
+		        * m_rotation
+		        * m_scale;
+		m_recomputeModel = false;
+	}
+
+	return m_mvp;
+}
+
+template <typename Derived>
+Derived&
+Transformations<Derived>::translate(float x, float y, float z) noexcept
+{
+	m_translation = glm::translate(glm::vec3(x, y, z));
+	m_recomputeModel = true;
+	return *m_self;
+}
+
+template <typename Derived>
+Derived&
+Transformations<Derived>::rotate(float degrees, float x, float y, float z) noexcept
+{
+	m_rotation = glm::rotate(glm::radians(degrees), glm::vec3(x, y, z));
+	m_recomputeModel = true;
+	return *m_self;
+}
+
+template <typename Derived>
+Derived&
+Transformations<Derived>::scale(float fx, float fy, float fz) noexcept
+{
+	m_scale = glm::scale(glm::vec3(fx, fy, fz));
+	m_recomputeModel = true;
+	return *m_self;
+}
+}
+#endif // TRANSFORMATIONS_IMPL

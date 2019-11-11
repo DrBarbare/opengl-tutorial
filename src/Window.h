@@ -5,12 +5,11 @@
 #include <vector>
 #include <stdexcept>
 #include <cstddef>
-#include <memory>
 #include <utility>
 
 #include <GLFW/glfw3.h>
 
-#include "Triangle.h"
+#include "Camera.h"
 #include "unused.h"
 
 

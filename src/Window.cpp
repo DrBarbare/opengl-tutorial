@@ -54,6 +54,12 @@ Window::configure()
 
 	glGenVertexArrays(1, &m_vao);
 	glBindVertexArray(m_vao);
+
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
+
 }
 
 bool
@@ -66,7 +72,7 @@ void
 Window::draw()
 {
 	/* Render here */
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// TODO: Draw stuff
 	for (const auto& drawThing : m_actions)
